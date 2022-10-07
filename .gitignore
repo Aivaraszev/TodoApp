@@ -1,3 +1,7 @@
 .idea
-WebApi/bin/Debug/net6.0/data.json
-WebApi/obj/staticwebassets.pack.sentinel
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+WebApi/data.json
