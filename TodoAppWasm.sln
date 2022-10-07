@@ -9,8 +9,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileData", "FileData\FileData.csproj", "{8051A858-A8F0-43D7-8578-3F4CEA6E0088}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWASM", "BlazorWASM\BlazorWASM.csproj", "{8A71498F-0C6D-4A1C-A6CA-9EA9453F7048}"
+	ProjectSection(ProjectDependencies) = postProject
+		{419245FA-B354-426B-B39C-A554F6427E3E} = {419245FA-B354-426B-B39C-A554F6427E3E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClients", "HttpClients\HttpClients.csproj", "{419245FA-B354-426B-B39C-A554F6427E3E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E314AB4B-7E04-4053-A55C-0F048CEAA7B6} = {E314AB4B-7E04-4053-A55C-0F048CEAA7B6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
