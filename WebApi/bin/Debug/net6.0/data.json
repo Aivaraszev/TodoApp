@@ -1,0 +1,41 @@
+{
+  "Users": [
+    {
+      "Id": 1,
+      "UserName": "Aivaras"
+    },
+    {
+      "Id": 2,
+      "UserName": "Bob"
+    }
+  ],
+  "Todos": [
+    {
+      "Id": 2,
+      "Owner": {
+        "Id": 2,
+        "UserName": "Bob"
+      },
+      "Title": "Do something with this bob guy Bob",
+      "IsCompleted": true
+    },
+    {
+      "Id": 3,
+      "Owner": {
+        "Id": 1,
+        "UserName": "Aivaras"
+      },
+      "Title": "It works!",
+      "IsCompleted": true
+    },
+    {
+      "Id": 1,
+      "Owner": {
+        "Id": 1,
+        "UserName": "Aivaras"
+      },
+      "Title": "Making good progress!",
+      "IsCompleted": true
+    }
+  ]
+}
