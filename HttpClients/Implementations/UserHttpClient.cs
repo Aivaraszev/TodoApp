@@ -9,7 +9,7 @@ namespace HttpClients.Implementations;
 public class UserHttpClient : IUserService
 {
     private readonly HttpClient _client;
-    
+
     public UserHttpClient(HttpClient client)
     {
         _client = client;
@@ -24,13 +24,10 @@ public class UserHttpClient : IUserService
             throw new Exception(result);
         }
 
-        User user = JsonSerializer.Deserialize<User>(result, new JsonSerializerOptions(
+        User user = JsonSerializer.Deserialize<User>(result, new JsonSerializerOptions
         {
-            
             PropertyNameCaseInsensitive = true
-            
         })!;
         return user;
-
     }
 }
