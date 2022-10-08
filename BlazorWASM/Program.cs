@@ -16,4 +16,5 @@ builder.Services.AddScoped(
 );
 
 builder.Services.AddScoped<IUserService, UserHttpClient>();
+builder.Services.AddScoped<ITodoService, TodoHttpClient>();
 await builder.Build().RunAsync();
