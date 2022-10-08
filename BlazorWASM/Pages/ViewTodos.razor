@@ -90,8 +90,10 @@ else
             {
                 completedFilterValue = bool.Parse(completedStatusFilter);
             }
-            
-            todos = await todoService.GetAsync(usernameFilter, userIdFilter, completedFilterValue, titleContainsFilter);
+            if (doShowFilters)
+                todos = await todoService.GetAsync(usernameFilter, userIdFilter, completedFilterValue, titleContainsFilter);
+            else
+                todos = await todoService.GetAsync(null, null, null, null);
         }
         catch (Exception e)
         {
