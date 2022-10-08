@@ -4,5 +4,5 @@ namespace HttpClients.ClientInterfaces;
 
 public interface ITodoService
 {
-    Task CreateTodo(TodoCreationDto dto);
+    Task CreateAsync(TodoCreationDto dto);
 }
