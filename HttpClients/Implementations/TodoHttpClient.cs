@@ -25,11 +25,12 @@ public class TodoHttpClient : ITodoService
         }
     }
 
-    public async Task<ICollection<Todo>> GetAsync(string? name, int? userId, bool? completedStatus, string? titleContains)
+    public async Task<ICollection<Todo>> GetAsync(string? userName, int? userId, bool? completedStatus, string? titleContains)
     {
-        HttpResponseMessage respone = await _client.GetAsync("/Todos");
-        string content = await respone.Content.ReadAsStringAsync();
-        if (!respone.IsSuccessStatusCode)
+        string query = ConstructQuery(userName, userId, completedStatus, titleContains);
+        HttpResponseMessage response = await _client.GetAsync("/Todos" + query);
+        string content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
@@ -39,5 +40,34 @@ public class TodoHttpClient : ITodoService
             PropertyNameCaseInsensitive = true
         })!;
         return todos;
+    }
+
+    private string ConstructQuery(string? userName, int? userId, bool? completedStatus,string? titleContains)
+    {
+        string query = "";
+        if (!string.IsNullOrEmpty(userName))
+        {
+            query += $"?username={userName}";
+        }
+
+        if (userId != null)
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"userid={userId}";
+        }
+
+        if (completedStatus != null)
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"completedstatus={completedStatus}";
+        }
+
+        if (!string.IsNullOrEmpty(titleContains))
+        {
+            query += string.IsNullOrEmpty(query) ? "?" : "&";
+            query += $"titlecontains={titleContains}";
+        }
+
+        return query;
     }
 }
