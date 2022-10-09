@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using Domain.DTOs;
 using Domain.Models;
@@ -40,6 +41,19 @@ public class TodoHttpClient : ITodoService
             PropertyNameCaseInsensitive = true
         })!;
         return todos;
+    }
+
+    public async Task UpdateAsync(TodoUpdateDto dto)
+    {
+        string dtoAsJson = JsonSerializer.Serialize(dto);
+        StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
+
+        HttpResponseMessage response = await _client.PatchAsync("/todos", body);
+        if (!response.IsSuccessStatusCode)
+        {
+            string content = await response.Content.ReadAsStringAsync();
+            throw new Exception(content);
+        }
     }
 
     private string ConstructQuery(string? userName, int? userId, bool? completedStatus,string? titleContains)
