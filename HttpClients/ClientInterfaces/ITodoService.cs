@@ -11,4 +11,6 @@ public interface ITodoService
         string? userName, int? userId, bool? completedStatus, string? titleContains);
 
     Task UpdateAsync(TodoUpdateDto dto);
+
+    Task<Todo> GetByIdAsync(int id);
 }
