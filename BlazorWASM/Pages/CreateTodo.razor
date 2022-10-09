@@ -2,6 +2,7 @@
 @using Domain.Models
 @using HttpClients.ClientInterfaces
 @using Domain.DTOs
+@using UIComponents
 @inject IUserService userService
 @inject ITodoService todoService
 @inject NavigationManager navMgr
@@ -41,12 +42,18 @@
         </div>
     }
 </div>
+<Modal ShowModal="showModal">
+    <p>You have successfully added a new Todo item. You should be very proud of yourself!</p>
+    <button @onclick="@Proceed">Wonderful</button>
+</Modal>
 @code {
     private IEnumerable<User>? users;
     private int? selectedUserId;
     private string todoTitle = "";
 
     private string msg = "";
+
+    private bool showModal;
 
     protected override async Task OnInitializedAsync()
     {
@@ -80,12 +87,18 @@
         {
             TodoCreationDto dto = new((int) selectedUserId, todoTitle);
             await todoService.CreateAsync(dto);
-            navMgr.NavigateTo("/");
+            showModal = true;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             msg = e.Message;
         }
+    }
+
+    private void Proceed()
+    {
+        showModal = false;
+        navMgr.NavigateTo("/ViewTodos");
     }
 }
