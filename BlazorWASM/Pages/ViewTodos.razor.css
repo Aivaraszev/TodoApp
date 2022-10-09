@@ -7,14 +7,14 @@
 }
 
 .funnel {
-    width:30px;
-    height:30px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
 }
 
 .edit-icon {
-    width:30px;
-    height:30px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
 }
 
@@ -24,4 +24,10 @@
     padding: 5px;
     margin: 5px;
     text-align: center;
+}
+
+.delete-label {
+    cursor: pointer;
+    color: red;
+    font-weight: bold
 }

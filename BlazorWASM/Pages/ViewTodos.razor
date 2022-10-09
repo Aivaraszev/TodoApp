@@ -56,6 +56,7 @@ else
             <th>Title</th>
             <th>Completed?</th>
             <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -70,6 +71,11 @@ else
                 </td>
                 <td>
                     <img src="icons/edit.gif" class="edit-icon" @onclick="@(() => navMgr.NavigateTo($"/EditTodo/{item.Id}"))" alt="edit"/>
+                </td>
+                <td>
+                    <label @onclick="@(() => RemoveTodo(item.Id))" class="delete-label">
+                        &#x2717;
+                    </label>
                 </td>
             </tr>
         }
@@ -123,6 +129,23 @@ else
         try
         {
             await todoService.UpdateAsync(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private async Task RemoveTodo(int todoId)
+    {
+        msg = "";
+        try
+        {
+            await todoService.DeleteAsync(todoId);
+            var list = new List<Todo>(todos!);
+            list.RemoveAll(todo => todo.Id == todoId);
+            todos = list.AsEnumerable();
         }
         catch (Exception e)
         {
