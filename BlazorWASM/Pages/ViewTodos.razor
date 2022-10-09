@@ -1,7 +1,10 @@
 @page "/ViewTodos"
 @using HttpClients.ClientInterfaces
 @using Domain.Models
+@using UIComponents
+@using Domain.DTOs
 @inject ITodoService todoService
+
 <h3>Todos</h3>
 <div class="filter-bar">
     <div class="filters-container">
@@ -60,7 +63,9 @@ else
                 <td>@item.Id</td>
                 <td>@item.Owner.UserName</td>
                 <td>@item.Title</td>
-                <td>@item.IsCompleted</td>
+                <td>
+                    <FancyCheckBox IsCompleted="@item.IsCompleted" OnChange="@((status) => CompleteTodoAsync(item,status))"></FancyCheckBox>
+                </td>
             </tr>
         }
         </tbody>
@@ -83,6 +88,7 @@ else
 
     private async Task LoadTodos()
     {
+        msg = "";
         try
         {
             bool? completedFilterValue = null;
@@ -94,6 +100,24 @@ else
                 todos = await todoService.GetAsync(usernameFilter, userIdFilter, completedFilterValue, titleContainsFilter);
             else
                 todos = await todoService.GetAsync(null, null, null, null);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            msg = e.Message;
+        }
+    }
+
+    private async Task CompleteTodoAsync(Todo item, bool status)
+    {
+        TodoUpdateDto dto = new(item.Id)
+        {
+            IsCompleted = status
+        };
+        msg = "";
+        try
+        {
+            await todoService.UpdateAsync(dto);
         }
         catch (Exception e)
         {
